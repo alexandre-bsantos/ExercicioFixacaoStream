@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -23,9 +22,6 @@ public class ExercicioFixacao {
 		try (BufferedReader br = new BufferedReader(new FileReader(caminho))){
 			List<Funcionario> list = new ArrayList<>();
 			
-			System.out.print("Enter salary: ");
-			double salario = sc.nextDouble();
-			
 			String line = br.readLine();
 			while (line != null) {
 				String[] fields = line.split(",");
@@ -33,12 +29,13 @@ public class ExercicioFixacao {
 				line = br.readLine();
 			}
 			
-			Comparator<String> comp = (nome1, nome2) -> nome1.toUpperCase().compareTo(nome2.toUpperCase());
-			
+			System.out.print("Enter salary: ");
+			double salario = sc.nextDouble();
+						
 			List<String> email = list.stream()
 					.filter(func -> func.getSalario() > salario)
 					.map(func -> func.getEmail())
-					.sorted(comp)
+					.sorted()
 					.collect(Collectors.toList());
 
 			System.out.println("Email of people whose salary is more than " + String.format("%.2f", salario) + ": ");
@@ -57,5 +54,4 @@ public class ExercicioFixacao {
 		
 		sc.close();
 	}
-
 }
